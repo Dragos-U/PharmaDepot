@@ -20,7 +20,7 @@ target/
 *.iml
 *.ipr
 .resources
-.mvn
+.mvngti
 .idea/modules.xml
 .idea/jarRepositories.xml
 .idea/compiler.xml
