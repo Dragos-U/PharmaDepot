@@ -3,6 +3,8 @@ package com.bearsoft.pharmadepot.exceptions.handler;
 import com.bearsoft.pharmadepot.exceptions.constraints.ConstraintViolationException;
 import com.bearsoft.pharmadepot.exceptions.constraints.ObjectNotValidException;
 import com.bearsoft.pharmadepot.exceptions.pharmacy.*;
+import com.bearsoft.pharmadepot.exceptions.product.ProductAlreadyExistsException;
+import com.bearsoft.pharmadepot.exceptions.product.ProductNotFoundException;
 import com.bearsoft.pharmadepot.exceptions.ratelimiter.RateLimiterException;
 import com.bearsoft.pharmadepot.models.exception.ApiException;
 import lombok.extern.slf4j.Slf4j;
@@ -104,6 +106,18 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Object> handlerAppUserAlreadyExistsException(PharmacyAlreadyExistsException appUserAlreadyExistsException) {
         log.error("PharmacyAlreadyExistsException occurred: {}", appUserAlreadyExistsException.getMessage(), appUserAlreadyExistsException);
         return getResponseEntity(appUserAlreadyExistsException.getMessage(), CONFLICT);
+    }
+
+    @ExceptionHandler(ProductAlreadyExistsException.class)
+    public ResponseEntity<Object> handlerProductAlreadyExistsException(ProductAlreadyExistsException productAlreadyExistsException) {
+        log.error("productAlreadyExistsException occurred: {}", productAlreadyExistsException.getMessage(), productAlreadyExistsException);
+        return getResponseEntity(productAlreadyExistsException.getMessage(), CONFLICT);
+    }
+
+    @ExceptionHandler(ProductNotFoundException.class)
+    public ResponseEntity<Object> handlerProductNotFoundException(ProductNotFoundException productNotFoundException) {
+        log.error("productNotFoundException occurred: {}", productNotFoundException.getMessage(), productNotFoundException);
+        return getResponseEntity(productNotFoundException.getMessage(), BAD_REQUEST);
     }
 
 }

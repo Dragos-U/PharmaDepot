@@ -1,7 +1,7 @@
 package com.bearsoft.pharmadepot.services.security;
 
 import com.bearsoft.pharmadepot.exceptions.pharmacy.*;
-import com.bearsoft.pharmadepot.models.SecurityPharmacy;
+import com.bearsoft.pharmadepot.models.security.SecurityPharmacy;
 import com.bearsoft.pharmadepot.models.domain.dtos.AuthenticationRequestDTO;
 import com.bearsoft.pharmadepot.models.domain.dtos.AuthenticationResponseDTO;
 import com.bearsoft.pharmadepot.models.domain.dtos.PharmacyDTO;
@@ -143,7 +143,7 @@ public class AuthenticationService {
         log.info("New token was generated");
         String refreshToken = jwtFilterService.generateRefreshToken(securityPharmacy);
         log.info("New refresh was generated");
-
+        log.info("Role assigned "+ securityPharmacy.getAuthorities());
         return AuthenticationResponseDTO.builder()
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)

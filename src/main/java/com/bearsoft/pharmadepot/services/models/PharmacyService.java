@@ -1,7 +1,7 @@
 package com.bearsoft.pharmadepot.services.models;
 
 import com.bearsoft.pharmadepot.exceptions.pharmacy.PharmacyNotFoundException;
-import com.bearsoft.pharmadepot.models.SecurityPharmacy;
+import com.bearsoft.pharmadepot.models.security.SecurityPharmacy;
 import com.bearsoft.pharmadepot.repositories.PharmacyRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class PharmacyServiceImpl implements UserDetailsService {
+public class PharmacyService implements UserDetailsService {
 
     private final PharmacyRepository pharmacyRepository;
 

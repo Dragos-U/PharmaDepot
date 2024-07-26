@@ -1,7 +1,7 @@
 package com.bearsoft.pharmadepot.services.security;
 
 
-import com.bearsoft.pharmadepot.models.SecurityPharmacy;
+import com.bearsoft.pharmadepot.models.security.SecurityPharmacy;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
