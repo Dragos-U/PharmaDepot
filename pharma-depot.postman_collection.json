@@ -1,0 +1,593 @@
+{
+	"info": {
+		"_postman_id": "04569a3e-2138-4878-9f37-57e44469d01b",
+		"name": "pharma-depot",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30131338"
+	},
+	"item": [
+		{
+			"name": "authentication",
+			"item": [
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"var accessToken = jsonData.access_token;\r",
+									"var refreshToken = jsonData.refresh_token;\r",
+									"\r",
+									"if (accessToken){\r",
+									"    pm.collectionVariables.set(\"accessToken\", accessToken);\r",
+									"}\r",
+									"\r",
+									"if (refreshToken) {\r",
+									"    pm.collectionVariables.set(\"refreshToken\", refreshToken); // Setting as collection variable\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Dona\",\r\n    \"password\": \"dona\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/authentication/login",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"authentication",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh access token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"var accessToken = jsonData.access_token;\r",
+									"\r",
+									"if (accessToken){\r",
+									"    pm.collectionVariables.set(\"accessToken\", accessToken);\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{refreshToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/authentication/refresh-token",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"authentication",
+								"refresh-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register pharmacy",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"let firstName = pm.environment.replaceIn(\"{{$randomFirstName}}\")\r",
+									"let lastName = pm.environment.replaceIn(\"{{$randomLastName}}\")\r",
+									"let country = pm.environment.replaceIn(\"{{$randomCountry}}\")\r",
+									"let city = pm.environment.replaceIn(\"{{$randomCity}}\")\r",
+									"\r",
+									"var email = firstName.toLowerCase() +\"_\"+lastName.toLowerCase()+\"@gmail.com\";\r",
+									"\r",
+									"let postalCodeLength = 6; \r",
+									"let postalCode = '';\r",
+									"\r",
+									"for(let i = 0; i < postalCodeLength; i++){\r",
+									"    postalCode += Math.floor(Math.random() * 10);\r",
+									"}\r",
+									"\r",
+									"pm.environment.set(\"firstName\",firstName)\r",
+									"pm.environment.set(\"lastName\",lastName)\r",
+									"pm.environment.set(\"email\",email)\r",
+									"pm.environment.set(\"country\",country)\r",
+									"pm.environment.set(\"city\", city)\r",
+									"pm.environment.set(\"postalCode\", postalCode)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"var accessToken = jsonData.access_token;\r",
+									"var refreshToken = jsonData.refresh_token;\r",
+									"\r",
+									"if (accessToken){\r",
+									"    pm.collectionVariables.set(\"accessToken\", accessToken);\r",
+									"}\r",
+									"\r",
+									"if (refreshToken) {\r",
+									"    pm.collectionVariables.set(\"refreshToken\", refreshToken); // Setting as collection variable\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/authentication/registration",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"authentication",
+								"registration"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"accessToken\", null);\r",
+									"pm.collectionVariables.set(\"refreshToken\", null);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/authentication/logout",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"authentication",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "administration",
+			"item": [
+				{
+					"name": "add product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"name\": \"Cephalexin\",\n        \"price\": 14.49,\n        \"category\": \"ANTIBIOTIC\"\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/products",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "admin login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"var accessToken = jsonData.access_token;\r",
+									"var refreshToken = jsonData.refresh_token;\r",
+									"\r",
+									"if (accessToken){\r",
+									"    pm.collectionVariables.set(\"accessToken\", accessToken);\r",
+									"}\r",
+									"\r",
+									"if (refreshToken) {\r",
+									"    pm.collectionVariables.set(\"refreshToken\", refreshToken); // Setting as collection variable\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/authentication/login",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"authentication",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "orders pharmacy per month",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/orders/monthly-orders/:pharmacyName/:year/:month",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"orders",
+								"monthly-orders",
+								":pharmacyName",
+								":year",
+								":month"
+							],
+							"variable": [
+								{
+									"key": "pharmacyName",
+									"value": "Dona"
+								},
+								{
+									"key": "year",
+									"value": "2024"
+								},
+								{
+									"key": "month",
+									"value": "07"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "orders pharmacy category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/orders/category-orders/:pharmacyName/:year/:category",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"orders",
+								"category-orders",
+								":pharmacyName",
+								":year",
+								":category"
+							],
+							"variable": [
+								{
+									"key": "pharmacyName",
+									"value": "Dona"
+								},
+								{
+									"key": "year",
+									"value": "2024"
+								},
+								{
+									"key": "category",
+									"value": "ANALGESIC"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "orders pharmacy category Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/orders/top-pharmacy/:year",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"orders",
+								"top-pharmacy",
+								":year"
+							],
+							"variable": [
+								{
+									"key": "year",
+									"value": "2024"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "pharmacy corner",
+			"item": [
+				{
+					"name": "place order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n    \"name\": \"Aspirin\",\n    \"quantity\": 10\n    },\n    { \n    \"name\": \"Vitamin A\",\n    \"quantity\": 20\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/orders",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all orders",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "all products",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/products",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "https://localhost/api/v1",
+			"type": "string"
+		},
+		{
+			"key": "accessToken",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "refreshToken",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

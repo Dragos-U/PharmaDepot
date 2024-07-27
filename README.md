@@ -30,6 +30,10 @@ The entity relationship diagram is presented below.
 
 ## Usage
 
+### Import to Postman pharma-depot.postman_collection.json for easier set up of the endpoints. 
+  
+### Make sure to set up `baseURL` variable appropriately in the collection folder
+
 * Login Endpoint: 
      `/api/v1/login` to authenticate and receive a JWT token.
 * Logout Endpoint: `/api/v1/logout` to logout and delete all tokens.
