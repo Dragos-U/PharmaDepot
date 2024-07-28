@@ -1,0 +1,31 @@
+services:
+  web:
+    container_name: pharmadepot-webapp
+    image: bearsoftdevelopment/pharmadepot:0.1
+    ports:
+      - "444:443"
+    networks:
+      - spring-boot-network
+    depends_on:
+      - database
+
+  database:
+    container_name: psql-pharmadepot
+    image: postgres
+    environment:
+      POSTGRES_USER: developer
+      POSTGRES_PASSWORD: developer
+      POSTGRES_DB: pharma-depo
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-pharmadepot:/var/lib/postgresql/data
+    networks:
+      - spring-boot-network
+
+volumes:
+  postgres-pharmadepot:
+
+networks:
+  spring-boot-network:
+    driver: bridge

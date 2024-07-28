@@ -23,6 +23,7 @@ import java.math.BigDecimal;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -60,7 +61,7 @@ public class OrderService {
                             .quantity(orderDTO.getQuantity())
                             .build();
                 })
-                .toList();
+                .collect(Collectors.toList());
 
         savedPharmacyOrder.setOrderItems(orderItems);
         orderRepository.save(savedPharmacyOrder);

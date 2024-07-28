@@ -183,7 +183,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Vlad\",\r\n    \"password\": \"Vlad\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -266,7 +266,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n        \"name\": \"Cephalexin\",\n        \"price\": 14.49,\n        \"category\": \"ANTIBIOTIC\"\n    }",
+							"raw": "{\n  \"name\": \"Niacin\",\n  \"price\": 12.50,\n  \"category\": \"VITAMIN\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -512,14 +512,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "all orders",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": []
 				}
 			]
 		},
@@ -576,7 +568,7 @@
 	"variable": [
 		{
 			"key": "baseURL",
-			"value": "https://localhost/api/v1",
+			"value": "",
 			"type": "string"
 		},
 		{
