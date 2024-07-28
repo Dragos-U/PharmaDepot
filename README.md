@@ -33,6 +33,8 @@ The entity relationship diagram is presented below.
 ### Import to Postman pharma-depot.postman_collection.json for easier set up of the endpoints. 
   
 ### Make sure to set up `baseURL` variable appropriately in the collection folder
+     For a limited period of time the app can be accessed on the AWS EC2 server  
+     baseURL: https://3.72.17.12:444/api/v1
 
 * Login Endpoint: 
      `/api/v1/login` to authenticate and receive a JWT token.
@@ -41,7 +43,10 @@ The entity relationship diagram is presented below.
 * Refresh token Endpoint: `/api/v1/authentication/refresh-token`  by default JWT will expire after 10 minutes
 * Products Endpoint: `/api/products` for pharmacies and admin to see all available products
 * Order Endpoint:  
+### ROLE_USER can access this endpoint
 `/api/v1/orders` for pharmacies to place orders.  
+
+### ROLE_ADMIN can access these points
 `/api/v1/orders/monthly-orders/pharmacyName/year/month`  receive the number of orders per pharmacy per given month  
 `/api/v1/orders/category-orders/pharmacyName/year/category`  receive the number of orders per category per year  
 `/api/v1/orders/top-pharmacy/year`  receive the top pharmacy based on the yearly orders
