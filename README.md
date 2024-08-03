@@ -33,8 +33,6 @@ The entity relationship diagram is presented below.
 ### Import to Postman pharma-depot.postman_collection.json for easier set up of the endpoints. 
   
 ### Make sure to set up `baseURL` variable appropriately in the collection folder
-     For a limited period of time the app can be accessed on the AWS EC2 server  
-     baseURL: https://3.72.17.12:444/api/v1
 
 * Login Endpoint: 
      `/api/v1/login` to authenticate and receive a JWT token.
